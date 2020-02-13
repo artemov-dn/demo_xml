@@ -40,20 +40,6 @@ public class Main {
 
             try {
                 calcElapsedTime("insertFields", () -> demoService.insertFields());
-            } catch (CannotGetJdbcConnectionException e) {
-                System.out.println("Неудалось установить соединение с БД");
-                System.out.println(e.getMessage());
-                System.exit(2);
-            } catch (BadSqlGrammarException e) {
-                System.out.println("Ошибка в запросе к БД");
-                System.out.println(e.getMessage());
-                System.exit(2);
-            } catch (DataAccessException e) {
-                System.out.println("Недостаточно прав для работы с БД");
-                System.out.println(e.getMessage());
-                System.exit(2);
-            }
-            try {
                 calcElapsedTime("createXMLDocument", () -> {
                     try {
                         demoService.createXMLDocument("1.xml");
