@@ -10,8 +10,6 @@ import java.util.List;
 @JacksonXmlRootElement(localName = "entries")
 public class Entries {
     @JacksonXmlProperty(localName = "entry")
-//    @JacksonXmlElementWrapper(useWrapping = true)
-//    @JacksonXmlElementWrapper(localName="other_phones")
     private List<Entry> entryList = new ArrayList<>();
 
     public List<Entry> getEntryList() {

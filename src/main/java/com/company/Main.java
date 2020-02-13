@@ -73,7 +73,7 @@ public class Main {
 
             calcElapsedTime("modifyXMLDocument", () -> {
                 try {
-                    demoService.modifyXMLDocument("1.xml", "2.xml");
+                    demoService.modifyXMLDocument("1.xml", "2.xml", "modify.xslt");
                 } catch (TransformerException e){
                     System.out.println("Ошибка трансформации xml документа");
                     System.out.println(e.getMessage());
@@ -82,7 +82,8 @@ public class Main {
             });
             calcElapsedTime("calcXMLDocument", () -> {
                 try {
-                    demoService.calcXMLDocument("2.xml");
+                    long sum = demoService.calcXMLDocument("2.xml");
+                    System.out.println(String.format("All fileds sum = %d", sum));
                 } catch (JsonParseException e) {
                     System.out.println("Ошибка при парсинге xml документа");
                     System.out.println(e.getMessage());

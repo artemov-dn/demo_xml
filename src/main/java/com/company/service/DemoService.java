@@ -70,25 +70,26 @@ public class DemoService {
         serializeToXML(filename, entries);
     }
 
-    public void modifyXMLDocument(String fromFile, String toFile) throws TransformerException {
+    public void modifyXMLDocument(String fromFile, String toFile, String xsltFile) throws TransformerException {
         TransformerFactory factory = TransformerFactory.newInstance();
-        Source xslt = new StreamSource(new File("modify.xslt"));
+        Source xslt = new StreamSource(new File(xsltFile));
         Transformer transformer = factory.newTransformer(xslt);
         Source xml = new StreamSource(new File(fromFile));
         transformer.transform(xml, new StreamResult(new File(toFile)));
     }
 
-    public void calcXMLDocument(String filename) throws IOException {
+    public long calcXMLDocument(String filename) throws IOException {
+        long result = 0L;
         XmlMapper xmlMapper = new XmlMapper();
         xmlMapper.setDefaultUseWrapper(false);
         Entries list = xmlMapper.readValue(new File(filename), Entries.class);
         if (list != null && list.getEntryList() != null && list.getEntryList().size() > 0) {
-            long sum = list.getEntryList().parallelStream()
+            result = list.getEntryList().parallelStream()
                     .map(dto -> (long) dto.getField())
                     .reduce((s1, s2) -> s1 + s2)
                     .orElse(0L);
-            System.out.println(String.format("All fileds sum = %d", sum));
         }
+        return result;
     }
 
 
